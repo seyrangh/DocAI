@@ -180,7 +180,7 @@ const Page = async () => {
                           variant: "secondary",
                         })}
                       >
-                        {user ? "Upgrade now" : "Sign up"}
+                        {user ? "Upgrade now" : "Sign In"}
                         <ArrowRight className="h-5 w-5 ml-1.5" />
                       </Link>
                     ) : user ? (
@@ -192,7 +192,7 @@ const Page = async () => {
                           className: "w-full",
                         })}
                       >
-                        {user ? "Upgrade now" : "Sign up"}
+                        {user ? "Upgrade now" : "Sign In"}
                         <ArrowRight className="h-5 w-5 ml-1.5" />
                       </Link>
                     )}

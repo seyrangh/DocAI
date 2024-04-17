@@ -7,7 +7,14 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { Button } from "./ui/button";
 import { useState } from "react";
-const Dashboard = () => {
+import { getUserSubscriptionPlan } from "@/lib/stripe";
+import { useRouter } from "next/navigation";
+
+interface PageProps {
+  subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
+}
+const Dashboard = ({ subscriptionPlan }: PageProps) => {
+  const router = useRouter();
   const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<
     string | null
   >(null);
@@ -26,12 +33,13 @@ const Dashboard = () => {
       setCurrentlyDeletingFile(null);
     },
   });
+
   return (
     <main className="mx-auto max-w-7xl md:p-10">
       <div className="mt-8 flex flex-col items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0">
         <h1 className="mb-3 font-bold text-5xl text-gray-900">My Files</h1>
 
-        <UploadButton />
+        <UploadButton isSubscribed={subscriptionPlan.isSubscribed} />
       </div>
 
       {files && files?.length !== 0 ? (
@@ -65,15 +73,22 @@ const Dashboard = () => {
                 <div className="px-6 mt-4 grid grid-cols-3 place-items-center py-2 gap-6 text-xs text-zinc-500">
                   <div className="flex items-center gap-2">
                     <Plus className="h-4 w-4" />
-                    {format(new Date(file.createdAt), "MMM yyyy")}
+                    {format(new Date(file.createdAt), "MMM dd yyyy")}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <MessageSquare className="h-4 w-4" />
-                    mocked
+                  <div className="flex items-center gap-2  ">
+                    <Button
+                      size="sm"
+                      className="w-full py-2 gap-2 text-xs text-zinc-500"
+                      variant="outline"
+                      onClick={() => router.push(`/dashboard/${file.id}`)} // Adjust the path as needed
+                    >
+                      <MessageSquare className="h-4 w-4 " />
+                      Chat Now!
+                    </Button>
                   </div>
                   <Button
                     size="sm"
-                    className="w-full"
+                    className="w-full hover:outline outline-red-100"
                     variant="destructive"
                     onClick={() => deleteFile({ id: file.id })}
                   >

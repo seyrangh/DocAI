@@ -8,6 +8,8 @@ import {
 } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ArrowRight } from "lucide-react";
 import UserAccountNav from "./UserAccountNav";
+import MobileNav from "./MobileNav";
+import Image from "next/image";
 
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
@@ -16,15 +18,13 @@ const Navbar = async () => {
   return (
     <nav className="sticky h-14 inset-x-0 top-0 z-30 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
-        <div className="flex h-14 items-center justify-between border-b border-zinc-200 ">
-          <Link
-            href="/"
-            className="flex z-40 font-semibold text-blue-600 text-2xl"
-          >
-            DocAI
+        <div className="flex h-14 items-center justify-between border-b border-zinc-200">
+          <Link href="/" className="flex z-40 font-semibold">
+            <span className=" text-lg bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 inline-block text-transparent bg-clip-text">
+              DocAi.
+            </span>
           </Link>
-
-          {/* todo: add mobile navbar */}
+          <MobileNav isAuth={!!user} />
 
           <div className="hidden items-center space-x-4 sm:flex">
             {!user ? (
