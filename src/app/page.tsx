@@ -42,7 +42,7 @@ export default function Home() {
           <span className="bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 inline-block text-transparent bg-clip-text ">
             knowledge{" "}
           </span>{" "}
-          shouldn't be locked on a page.
+          shouldn&apos;s be locked on a page.
         </p>
 
         <Link
